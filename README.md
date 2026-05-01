@@ -15,7 +15,9 @@ A minimal, fast and beautiful ZSH toolkit for macOS developers.
 ```bash
 git clone https://github.com/danielbadry/zshkit.git
 cd zshkit
+chmod +x install.sh
 ./install.sh
+source ~/.zshrc
 ```
 
 ## 🔥 Preview
