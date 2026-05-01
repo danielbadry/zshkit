@@ -2,25 +2,30 @@
 
 set -e
 
-REPO="https://github.com/YOUR_USERNAME/zshkit.git"
 INSTALL_DIR="$HOME/.zshkit"
+CURRENT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "🚀 Installing zshkit..."
 
-if [ -d "$INSTALL_DIR" ]; then
-  echo "⚠️ zshkit already installed. Pulling latest..."
-  git -C "$INSTALL_DIR" pull
+if [ "$CURRENT_DIR" != "$INSTALL_DIR" ]; then
+  echo "📦 Copying zshkit files to $INSTALL_DIR..."
+
+  rm -rf "$INSTALL_DIR"
+  mkdir -p "$INSTALL_DIR"
+
+  cp -R "$CURRENT_DIR/"* "$INSTALL_DIR/"
 else
-  git clone "$REPO" "$INSTALL_DIR"
+  echo "✅ zshkit is already in $INSTALL_DIR"
 fi
 
-# backup
-cp "$HOME/.zshrc" "$HOME/.zshrc.backup" 2>/dev/null || true
+touch "$HOME/.zshrc"
 
-# append safely
-if ! grep -q "zshkit.sh" "$HOME/.zshrc"; then
-  echo "\n# zshkit" >> "$HOME/.zshrc"
-  echo "source ~/.zshkit/zshkit.sh" >> "$HOME/.zshrc"
+if ! grep -q "source ~/.zshkit/zshkit.sh" "$HOME/.zshrc"; then
+  {
+    echo ""
+    echo "# zshkit"
+    echo "source ~/.zshkit/zshkit.sh"
+  } >> "$HOME/.zshrc"
 fi
 
 echo "✅ Installed!"
