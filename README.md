@@ -2,6 +2,8 @@
 
 A minimal, fast and beautiful ZSH toolkit for macOS developers.
 
+![zshkit preview](./preview.png)
+
 ## ✨ Features
 
 * 🎨 Clean and colorful terminal
